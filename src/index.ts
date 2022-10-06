@@ -59,8 +59,8 @@ async function saveCurrentPower() {
 db.initialize()
   .then(async () => {
     await savePosTotal();
-    // every 10 minutes
-    setInterval(savePosTotal, 10 * 60 * 1000);
+    // every minute
+    setInterval(savePosTotal, 60 * 1000);
 
     // every second
     setInterval(saveCurrentPower, 1000);
