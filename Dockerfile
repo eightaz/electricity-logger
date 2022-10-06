@@ -4,7 +4,7 @@ FROM node as builder
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json yarn.lock ./
+COPY package.json ./
 
 RUN yarn install --frozen-lockfile
 
@@ -18,7 +18,7 @@ FROM node:slim
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json yarn.lock ./
+COPY package.json ./
 
 RUN yarn install --production --frozen-lockfile
 
