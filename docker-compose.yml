@@ -11,7 +11,7 @@ services:
       - "POSTGRES_PASSWORD=${DB_PASSWORD}"
       - "POSTGRES_DB=${DB_DATABASE}"
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - electricity-db:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     # networks:
@@ -32,8 +32,8 @@ services:
     # networks:
     #   - electricity-net
 
-# networks:
-#   electricity-net:
+networks:
+  electricity-net:
 
 volumes:
-  db-data:
+  electricity-db:
