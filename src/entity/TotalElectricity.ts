@@ -13,5 +13,5 @@ export class TotalElectricity {
 	name: string;
 
 	@Column({ type: "decimal", precision: 12, scale: 3 })
-	posTotal: number;
+	total: number;
 }

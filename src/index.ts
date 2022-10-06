@@ -32,7 +32,7 @@ async function savePosTotal() {
     db.getRepository(TotalElectricity).create({
       time: now,
       name: total.name,
-      posTotal: total.total,
+      total: total.total,
     })
   );
 
