@@ -1,0 +1,21 @@
+{
+   "compilerOptions": {
+      "lib": [
+         "es5",
+         "es6",
+         "es2018",
+         "es2019",
+         "DOM"
+      ],
+      "target": "es5",
+      "sourceRoot": "./src",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true
+   }
+}
