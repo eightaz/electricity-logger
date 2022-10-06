@@ -20,7 +20,7 @@ async function fetchPosTotal(console: DataConsole) {
     .get(console.ip + "/api/v1/meters/ea-pos-total")
     .then(r => ({
       name: console.name,
-      total: r?.data?.value / 1000
+      total: r?.data?.value
     }));
 }
 
