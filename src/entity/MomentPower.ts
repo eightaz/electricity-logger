@@ -13,6 +13,6 @@ export class MomentPower {
   @Column()
   name: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 3 })
+  @Column({ type: 'decimal', precision: 10, scale: 3 })
   power: number;
 }
