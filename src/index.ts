@@ -64,7 +64,5 @@ db.initialize()
 
     // every second
     setInterval(saveCurrentPower, 1000);
-
-    console.log('yo');
   });
 
