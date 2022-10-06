@@ -3,7 +3,6 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'moment_power' })
 export class MomentPower {
   @Index(['time', 'name'], { unique: true })
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,6 +12,6 @@ export class MomentPower {
   @Column()
   name: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 3 })
+  @Column({ type: 'decimal', precision: 12, scale: 2 })
   power: number;
 }
