@@ -12,6 +12,10 @@ async function fetchCurrentPower(console: DataConsole) {
     .then(r => ({
       name: console.name,
       power: r?.data?.value
+    }))
+    .catch(e => ({
+      name: console.name,
+      power: null
     }));
 }
 
@@ -21,7 +25,11 @@ async function fetchPosTotal(console: DataConsole) {
     .then(r => ({
       name: console.name,
       total: r?.data?.value
-    }));
+    }))
+    .catch(e => ({
+      name: console.name,
+      total: null
+    }))
 }
 
 async function savePosTotal() {
