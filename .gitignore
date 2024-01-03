@@ -1,4 +1,5 @@
 .env
+.env.*
 build/
 database/
 node_modules/
