@@ -13,10 +13,12 @@
   "devDependencies": {
     "@types/node": "^18.8.2",
     "cross-env": "^7.0.3",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^2.0.0"
   },
   "scripts": {
     "start": "node build/index.js",
+    "dev": "ts-node-dev src/index.ts",
     "build": "cross-env rimraf ./build && tsc",
     "typeorm": "ts-node -r tsconfig-paths/register -r dotenv/config ./node_modules/typeorm/cli.js --config ./typeorm.ts"
   }
