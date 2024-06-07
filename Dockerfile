@@ -24,4 +24,5 @@ RUN yarn install --production --frozen-lockfile
 
 COPY --from=builder /usr/src/app/build ./build
 
+EXPOSE 8080
 CMD [ "node", "build/index.js" ]
