@@ -13,25 +13,7 @@ services:
     volumes:
       - electricity-db:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
-
-  fetch:
-    container_name: electricity_fetch
-    build: .
-    restart: unless-stopped
-    depends_on:
-      - postgres
-    environment:
-      - "DB_HOSTNAME=${DB_HOSTNAME}"
-      - "DB_PORT=${DB_PORT}"
-      - "DB_USERNAME=${DB_USERNAME}"
-      - "DB_DATABASE=${DB_DATABASE}"
-      - "DB_PASSWORD=${DB_PASSWORD}"
-    links:
-      - "postgres:${DB_HOSTNAME}"
-
-networks:
-  electricity-net:
+      - "5435:5432"
 
 volumes:
   electricity-db:

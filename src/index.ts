@@ -1,68 +1,49 @@
 require('dotenv').config();
 import 'reflect-metadata';
-import dataConsoles, { DataConsole } from './config';
-import { TotalElectricity } from './entity/TotalElectricity';
-import { MomentPower } from './entity/MomentPower';
 import db from './database';
-import axios from 'axios';
+import dataConsoles from './sources';
+import DataFetcher from './DataFetcher';
 
-async function fetchCurrentPower(console: DataConsole) {
-  return axios
-    .get(console.ip + "/api/v1/measurements/p")
-    .then(r => ({
-      name: console.name,
-      power: r?.data?.value
-    }));
+async function savePosTotal(time: Date) {
+  await Promise.all(
+    dataConsoles.map(
+      async dataConsole => dataConsole.totalElectricityRepository.create({
+        time,
+        total: await DataFetcher.fetchPosTotal(dataConsole),
+      })
+    )
+  ).then(async totals => await db.manager.save(totals));
+
+  console.log(time, 'Saved total power consumption');
 }
 
-async function fetchPosTotal(console: DataConsole) {
-  return axios
-    .get(console.ip + "/api/v1/meters/ea-pos-total")
-    .then(r => ({
-      name: console.name,
-      total: r?.data?.value
-    }));
+async function saveCurrentPower(time: Date) {
+  await Promise.all(
+    dataConsoles.map(
+      async dataConsole => dataConsole.momentPowerRepository.create({
+        time,
+        power: await DataFetcher.fetchCurrentPower(dataConsole),
+      })
+  )
+  ).then(async powers => await db.manager.save(powers));
+
+  console.log(time, 'Saved current power');
 }
 
-async function savePosTotal() {
-  const totals = await Promise.all(dataConsoles.map(fetchPosTotal));
-  const now = new Date();
+async function main() {
+  await db.initialize();
 
-  const entities = totals.map((total) =>
-    db.getRepository(TotalElectricity).create({
-      time: now,
-      name: total.name,
-      total: total.total,
-    })
-  );
+  // run both functions on startup
+  await Promise.all([
+    savePosTotal(new Date),
+    saveCurrentPower(new Date),
+  ])
 
-  await db.manager.save(entities);
-  console.log('Saved total power consumption', now);
+  // every minute
+  setInterval(() => savePosTotal(new Date), 60 * 1000);
+
+  // every second
+  setInterval(() => saveCurrentPower(new Date), 1000);
 }
 
-async function saveCurrentPower() {
-  const powers = await Promise.all(dataConsoles.map(fetchCurrentPower));
-  const now = new Date();
-
-  const entities = powers.map((power) =>
-    db.getRepository(MomentPower).create({
-      time: now,
-      name: power.name,
-      power: power.power,
-    })
-  );
-
-  await db.manager.save(entities);
-  console.log('Saved current power', now);
-}
-
-db.initialize()
-  .then(async () => {
-    await savePosTotal();
-    // every minute
-    setInterval(savePosTotal, 60 * 1000);
-
-    // every second
-    setInterval(saveCurrentPower, 1000);
-  });
-
+main();
