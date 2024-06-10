@@ -3,7 +3,7 @@ version: '3.9'
 services:
   postgres:
     container_name: electricity_timescale
-    image: timescale/timescaledb:latest-pg13
+    image: timescale/timescaledb:latest-pg12
     restart: unless-stopped
     command: ['-c', 'shared_buffers=256MB', '-c', 'max_connections=200']
     environment:
@@ -14,6 +14,8 @@ services:
       - electricity-db:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+    networks:
+      - electricity-net
 
   fetch:
     container_name: electricity_fetch
@@ -29,6 +31,8 @@ services:
       - "DB_PASSWORD=${DB_PASSWORD}"
     links:
       - "postgres:${DB_HOSTNAME}"
+    networks:
+      - electricity-net
 
 networks:
   electricity-net:

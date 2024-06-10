@@ -7,6 +7,7 @@ const database = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
+  migrationsRun: true,
   logging: ['error'],
   entities: [__dirname + '/entity/**/*.{js,ts}'],
   migrations: [__dirname + '/migrations/*.{js,ts}'],
