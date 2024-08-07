@@ -6,6 +6,6 @@ export class MomentPowerMAC implements MomentPowerSingle {
   @PrimaryColumn({ type: 'timestamptz' })
   time: any;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  @Column({ type: 'decimal', precision: 12, scale: 2, nullable: true })
   power: number;
 }

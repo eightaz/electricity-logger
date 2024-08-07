@@ -6,6 +6,6 @@ export class TotalElectricityLinija2Liejimas implements TotalElectricitySingle {
   @PrimaryColumn({ type: 'timestamptz' })
   time: any;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
+  @Column({ type: 'decimal', precision: 12, scale: 2, nullable: true })
   total: number;
 }
